@@ -29,4 +29,3 @@ class RequestRepository(GenericORMRepository[Request]):
 
 class RecommendationRepository(GenericORMRepository[Recommendation]):
     model = Recommendation
-

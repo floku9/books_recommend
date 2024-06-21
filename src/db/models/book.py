@@ -9,19 +9,18 @@ from db.models.base import BaseWithCreation, Base
 class Book(BaseWithCreation):
     __tablename__ = "books"
     title: Mapped[str] = mapped_column()
-    author: Mapped[str] = mapped_column()
     year: Mapped[int] = mapped_column()
     description: Mapped[str] = mapped_column()
 
     genres: Mapped[List["Genre"]] = relationship(
-        back_populates='books',
-        secondary='book_genres',
+        back_populates="books",
+        secondary="book_genres",
         lazy="selectin",
     )
 
     authors: Mapped[List["Author"]] = relationship(
-        back_populates='books',
-        secondary='book_authors',
+        back_populates="books",
+        secondary="book_authors",
         lazy="selectin",
     )
 

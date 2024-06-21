@@ -34,8 +34,7 @@ class Request(BaseWithCreation):
     status: Mapped[RequestStatus] = mapped_column(default=RequestStatus.NEW)
 
     recommendations: Mapped[Optional[List["Recommendation"]]] = relationship(
-        back_populates="request",
-        cascade="all"
+        back_populates="request", cascade="all"
     )
 
 

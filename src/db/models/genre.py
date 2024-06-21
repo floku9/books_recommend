@@ -10,8 +10,8 @@ class Genre(Base):
     name: Mapped[str]
 
     books: Mapped[Optional[List["Book"]]] = relationship(
-        back_populates='genres',
-        secondary='book_genres',
+        back_populates="genres",
+        secondary="book_genres",
         lazy="selectin",
     )
 
@@ -20,4 +20,3 @@ class Genre(Base):
         secondary="request_genres",
         lazy="selectin",
     )
-

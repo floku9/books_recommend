@@ -6,7 +6,7 @@ from sqlalchemy.ext.asyncio import AsyncSession
 from db.models.base import Base
 from repositories.sql.sql_base_repository import SQLBaseRepositoryAsync
 
-T = TypeVar('T', bound=Base)
+T = TypeVar("T", bound=Base)
 
 
 class GenericORMRepository[T](SQLBaseRepositoryAsync):
@@ -17,6 +17,11 @@ class GenericORMRepository[T](SQLBaseRepositoryAsync):
 
     async def get_one(self, id: int) -> Optional[T]:
         stmt = select(self.model).where(self.model.id == id)
+        result = await self._session.execute(stmt)
+        return result.scalar()
+
+    async def get_one_by_filters(self, **filters: dict[str, Any]) -> Optional[T]:
+        stmt = select(self.model).filter_by(**filters)
         result = await self._session.execute(stmt)
         return result.scalar()
 
