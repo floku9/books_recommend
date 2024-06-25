@@ -1,6 +1,6 @@
 from typing import TypeVar, List, Any, Type, Optional
 
-from sqlalchemy import select
+from sqlalchemy import select, insert, update
 from sqlalchemy.ext.asyncio import AsyncSession
 
 from db.models.base import Base
@@ -31,16 +31,23 @@ class GenericORMRepository[T](SQLBaseRepositoryAsync):
         result = [res[0] for res in result.all()]
         return result
 
-    async def create(self, record: T) -> T:
-        self._session.add(record)
+    async def create(self, data: dict[str, Any]) -> T:
+        stmt = insert(self.model).values(**data).returning(self.model)
+        result = await self._session.execute(stmt)
         await self._session.flush()
-        await self._session.refresh(record)
+        record = result.scalar_one()
         return record
 
-    async def update(self, record: T) -> T:
-        self._session.add(record)
+    async def update(self, id: int, data: dict[str, Any]) -> T:
+        stmt = (
+            update(self.model)
+            .where(self.model.id == id)
+            .values(**data)
+            .returning(self.model)
+        )
+        result = await self._session.execute(stmt)
         await self._session.flush()
-        await self._session.refresh(record)
+        record = result.scalar_one()
         return record
 
     async def delete(self, id: int) -> None:

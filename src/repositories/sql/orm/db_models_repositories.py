@@ -1,5 +1,5 @@
 from db.models.author import Author
-from db.models.book import Book
+from db.models.book import Book, BookAuthors, BookGenres
 from db.models.genre import Genre
 from db.models.recommendation import Recommendation
 from db.models.request import Request
@@ -29,3 +29,11 @@ class RequestRepository(GenericORMRepository[Request]):
 
 class RecommendationRepository(GenericORMRepository[Recommendation]):
     model = Recommendation
+
+
+class BookAuthorsRepository(GenericORMRepository[BookAuthors]):
+    model = BookAuthors
+
+
+class BookGenresRepository(GenericORMRepository[BookGenres]):
+    model = BookGenres

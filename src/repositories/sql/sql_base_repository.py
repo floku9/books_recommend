@@ -1,6 +1,7 @@
 from abc import ABC, abstractmethod
 from typing import Any
 
+
 from repositories.abstract_repository import AbstractRepositoryAsync
 
 
@@ -14,11 +15,11 @@ class SQLBaseRepositoryAsync(AbstractRepositoryAsync, ABC):
         raise NotImplementedError
 
     @abstractmethod
-    async def create(self, record: Any):
+    async def create(self, data: dict[str, Any]):
         raise NotImplementedError
 
     @abstractmethod
-    async def update(self, record: Any):
+    async def update(self, id: int, data: dict[str, Any]):
         raise NotImplementedError
 
     async def delete(self, id: int):
