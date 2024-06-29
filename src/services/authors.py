@@ -1,18 +1,17 @@
 from typing import List
 
 from dto.authors import AuthorAddDTO, AuthorsSearchDTO, AuthorGetDTO
-from services.generic_uow_service import GenericUOWService
+from services.generic_uow_service import GenericUOWService, GetMixin
+from uow.sql_orm_uow import SQLORMUnitOfWork
 
 
-class AuthorsService(GenericUOWService):
+class AuthorsService(GenericUOWService, GetMixin[AuthorGetDTO]):
 
-    async def get(self, id: int) -> AuthorGetDTO | None:
-        async with self._uow:
-            author = await self._uow.authors.get_one(id)
-            if author:
-                return AuthorGetDTO.from_orm(author)
-            else:
-                return None
+    dto = AuthorGetDTO
+    def __init__(self, uow: SQLORMUnitOfWork):
+        super().__init__(uow)
+        self.repository = uow.authors
+
 
     async def add(self, author: AuthorAddDTO) -> int:
         async with self._uow as uow:

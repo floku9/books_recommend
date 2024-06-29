@@ -8,7 +8,6 @@ class Base(DeclarativeBase):
     __abstract__ = True
     id: Mapped[int] = mapped_column(primary_key=True, autoincrement=True)
 
-
 class BaseWithCreation(Base):
     __abstract__ = True
     created_at: Mapped[datetime] = mapped_column(DateTime, default=datetime.now())

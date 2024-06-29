@@ -15,6 +15,12 @@ from uow.abstract_uow import AbstractUnitOfWorkAsync
 
 
 class SQLORMUnitOfWork(AbstractUnitOfWorkAsync):
+    authors = None
+    books = None
+    genres = None
+    recommendations = None
+    requests = None
+    users = None
 
     def __init__(self, session_factory: async_sessionmaker[AsyncSession]):
         self._session_factory = session_factory

@@ -38,6 +38,7 @@ async def main():
     genres_service = GenresService(uow)
     authors_service = AuthorsService(uow)
 
+    abc = await authors_service.get(1)
     genre_ids, author_ids = [], []
 
     for genre in book_schema.genres:
