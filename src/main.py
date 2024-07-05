@@ -1,15 +1,13 @@
 import asyncio
 import dataclasses
 from typing import Optional, List
-
-from db.configuration import async_session_factory
-from dto.authors import AuthorsSearchDTO, AuthorAddDTO
-from dto.books import BookCreateDTO
-from dto.genres import GenreAddDTO
-from services.authors import AuthorsService
-from services.books import BooksService
-from services.genres import GenresService
-from uow.sql_orm_uow import SQLORMUnitOfWork
+from api.dto import AuthorsSearchDTO, AuthorAddDTO
+from api.dto import BookCreateDTO
+from api.dto import GenreAddDTO
+from application.services import AuthorsService
+from application.services import BooksService
+from application.services import GenresService
+from data.uow.sql_orm_uow import SQLORMUnitOfWork
 
 @dataclasses.dataclass
 class BookAddUserDTO:
@@ -21,7 +19,7 @@ class BookAddUserDTO:
 
 
 async def main():
-    uow = SQLORMUnitOfWork(async_session_factory)
+    uow = SQLORMUnitOfWork()
     book_schema = BookAddUserDTO(
         title="1984",
         description="культовый роман Джорджа Оруэлла, действие которого разворачивается в "
@@ -63,8 +61,10 @@ async def main():
         genre_ids=genre_ids,
         author_ids=author_ids,
     )
-    created_book = await BooksService(uow).add(book_create_schema)
-    print(created_book)
+    book_id = await BooksService(uow).add(book_create_schema)
+    book = await BooksService(uow).get(book_id)
+    print(book.model_dump())
+
 
 
 if __name__ == "__main__":
