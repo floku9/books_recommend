@@ -1,7 +1,7 @@
 from fastapi import APIRouter, HTTPException
 
 from api.dependencies import UOWDependency
-from api.dto import AuthorGetDTO, AuthorsSearchDTO
+from api.dto.authors import AuthorGetDTO, AuthorsSearchDTO
 from application.services import AuthorsService
 
 router = APIRouter(
