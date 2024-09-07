@@ -12,5 +12,5 @@ class Recommendation(BaseWithCreation):
     rating: Mapped[float]
     gpt_description: Mapped[str]
 
-    request: Mapped["Request"] = relationship(back_populates="recommendations")
-    book: Mapped["Book"] = relationship()
+    request: Mapped["Request"] = relationship(back_populates="recommendations") # type: ignore
+    book: Mapped["Book"] = relationship() # type: ignore

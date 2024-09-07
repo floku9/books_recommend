@@ -39,12 +39,7 @@ class GenericORMRepository[T](SQLBaseRepositoryAsync):
         return record
 
     async def update(self, id: int, data: dict[str, Any]) -> T:
-        stmt = (
-            update(self.model)
-            .where(self.model.id == id)
-            .values(**data)
-            .returning(self.model)
-        )
+        stmt = update(self.model).where(self.model.id == id).values(**data).returning(self.model)
         result = await self._session.execute(stmt)
         await self._session.flush()
         record = result.scalar_one()

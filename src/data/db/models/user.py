@@ -10,6 +10,4 @@ class User(BaseWithCreation):
     name: Mapped[str]
     email: Mapped[str | None]
     telegram_id: Mapped[str]
-    requests: Mapped[List["Request"]] = relationship(
-        back_populates="user", lazy="selectin"
-    )
+    requests: Mapped[List["Request"]] = relationship(back_populates="user", lazy="selectin") # type: ignore

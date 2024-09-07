@@ -18,22 +18,22 @@ class Request(BaseWithCreation):
     __tablename__ = "requests"
 
     user_id: Mapped[int] = mapped_column(ForeignKey("users.id"))
-    user: Mapped["User"] = relationship()
-
-    genres: Mapped[Optional[List["Genre"]]] = relationship(
+    user: Mapped["User"] = relationship() # type: ignore
+# 
+    genres: Mapped[Optional[List["Genre"]]] = relationship( # type: ignore
         back_populates="requests",
         secondary="request_genres",
         lazy="selectin",
     )
 
-    authors: Mapped[Optional[List["Author"]]] = relationship(
+    authors: Mapped[Optional[List["Author"]]] = relationship( # type: ignore
         back_populates="requests",
         secondary="request_authors",
         lazy="selectin",
     )
     status: Mapped[RequestStatus] = mapped_column(default=RequestStatus.NEW)
 
-    recommendations: Mapped[Optional[List["Recommendation"]]] = relationship(
+    recommendations: Mapped[Optional[List["Recommendation"]]] = relationship( # type: ignore
         back_populates="request", cascade="all"
     )
 

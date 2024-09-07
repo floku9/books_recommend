@@ -20,16 +20,16 @@ class Roles(str, Enum):
 
 
 class Message(BaseModel):
-    role: Roles = Field(
-        description="The role of the message sender", default=Roles.USER
-    )
+    role: Roles = Field(description="The role of the message sender", default=Roles.USER)
     content: str
 
 
 class ModelParameters(BaseModel):
     model_type: ModelTypes = Field(
-        description="The role of the message sender", default=ModelTypes.GIGACHAT_LITE,
-        alias="model", alias_priority=2
+        description="The role of the message sender",
+        default=ModelTypes.GIGACHAT_LITE,
+        alias="model",
+        alias_priority=2,
     )
     temperature: Optional[float] = None
     top_p: Optional[float] = None
@@ -46,7 +46,6 @@ class RequestBody(BaseModel):
     def to_request_dict(self):
         data = self.model_dump(by_alias=True)
         # Flatten the model_parameters into the main dict
-        parameters = data.pop('model_parameters')
+        parameters = data.pop("model_parameters")
         data.update(parameters)
         return data
-

@@ -10,11 +10,16 @@ class SBERAuthSettings(BaseSettings):
     AUTHS: str
     SCOPE: str
 
-    model_config = SettingsConfigDict(env_file=find_dotenv(".env"), env_prefix="SBER_", extra="ignore")
+    model_config = SettingsConfigDict(
+        env_file=find_dotenv(".env"), env_prefix="SBER_", extra="ignore"
+    )
+
 
 class SBERBaseSettings(BaseSettings):
     BASE_URL: str
-    model_config = SettingsConfigDict(env_file=find_dotenv(".env"), env_prefix="SBER_", extra="ignore")
+    model_config = SettingsConfigDict(
+        env_file=find_dotenv(".env"), env_prefix="SBER_", extra="ignore"
+    )
 
 
 sber_auth_settings = SBERAuthSettings()

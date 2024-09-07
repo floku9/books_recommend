@@ -6,14 +6,13 @@ from data.uow.sql_orm_uow import SQLORMUnitOfWork
 DTO = TypeVar("DTO", bound=BaseDTO)
 
 
-
 class Get(Protocol):
-    async def get(self, id: int) -> DTO:
+    async def get(self, id: int) -> BaseDTO:
         raise NotImplementedError
 
 
 class Add(Protocol):
-    async def add(self, dto: DTO) -> int:
+    async def add(self, dto: BaseDTO) -> int:
         raise NotImplementedError
 
 

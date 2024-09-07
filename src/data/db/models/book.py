@@ -12,13 +12,13 @@ class Book(BaseWithCreation):
     year: Mapped[int] = mapped_column()
     description: Mapped[str] = mapped_column()
 
-    genres: Mapped[List["Genre"]] = relationship(
+    genres: Mapped[List["Genre"]] = relationship( # type: ignore
         back_populates="books",
         secondary="book_genres",
         lazy="selectin",
     )
 
-    authors: Mapped[List["Author"]] = relationship(
+    authors: Mapped[List["Author"]] = relationship( # type: ignore
         back_populates="books",
         secondary="book_authors",
         lazy="selectin",

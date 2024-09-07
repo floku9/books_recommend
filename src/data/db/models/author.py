@@ -11,13 +11,13 @@ class Author(Base):
     middle_name: Mapped[Optional[str]]
     last_name: Mapped[str]
 
-    books: Mapped[List["Book"]] = relationship(
+    books: Mapped[List["Book"]] = relationship( # type: ignore
         back_populates="authors",
         secondary="book_authors",
         lazy="selectin",
     )
 
-    requests: Mapped[Optional[List["Request"]]] = relationship(
+    requests: Mapped[Optional[List["Request"]]] = relationship( # type: ignore
         back_populates="authors",
         secondary="request_authors",
         lazy="selectin",

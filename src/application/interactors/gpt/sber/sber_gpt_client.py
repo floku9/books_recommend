@@ -22,8 +22,7 @@ class SBERGPTClient(HTTPGPTClientAbstract):
         await super().__aenter__()
         return self
 
-    async def __aexit__(self, *args):
-        ...
+    async def __aexit__(self, *args): ...
 
     async def _authorize(self):
         query = "/api/v2/oauth"
@@ -38,10 +37,10 @@ class SBERGPTClient(HTTPGPTClientAbstract):
         }
 
         async with self._async_session.post(
-                url,
-                headers=headers,
-                data=params,
-                timeout=20,
+            url,
+            headers=headers,
+            data=params,
+            timeout=20,
         ) as response:
             if response.status != 200:
                 HTTPExceptionsFactory.raise_exception(
@@ -68,7 +67,6 @@ class SBERGPTClient(HTTPGPTClientAbstract):
                 {"role": "system", "content": prompt},
                 *[{"role": "user", "content": message} for message in messages],
             ],
-
         )
 
         async with self._async_session.post(
@@ -84,5 +82,4 @@ class SBERGPTClient(HTTPGPTClientAbstract):
             json_response = await response.json()
             return json_response["choices"][0]["message"]["content"]
 
-    async def get_tokens_count(self, prompt: str, messages: list[str]) -> Any:
-        ...
+    async def get_tokens_count(self, prompt: str, messages: list[str]) -> Any: ...
