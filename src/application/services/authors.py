@@ -18,7 +18,7 @@ class AuthorsService(GenericUOWService):
             await self._uow.commit()
             return author_model.id
 
-    async def search_by_names(self, search_schema: AuthorsSearchDTO) -> List[AuthorGetDTO] | None:
+    async def search_by_names(self, search_schema: AuthorsSearchDTO) -> List[AuthorGetDTO]:
         async with self._uow:
             filters = search_schema.model_dump(exclude_none=True)
             authors = await self._uow.authors.get_many(**filters)
@@ -26,4 +26,4 @@ class AuthorsService(GenericUOWService):
             if authors:
                 return [AuthorGetDTO.model_validate(author) for author in authors]
             else:
-                return None
+                return []

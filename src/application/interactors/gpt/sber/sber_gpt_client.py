@@ -80,6 +80,7 @@ class SBERGPTClient(HTTPGPTClientAbstract):
                     status_code=response.status, reason=response.reason
                 )
             json_response = await response.json()
+            
             return json_response["choices"][0]["message"]["content"]
 
     async def get_tokens_count(self, prompt: str, messages: list[str]) -> Any: ...
